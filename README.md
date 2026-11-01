@@ -39,6 +39,28 @@ The npm package is released by `.github/workflows/release-cli.yml` when a `cli-v
 Or by hand in the browser: [add a file](https://github.com/flisk-sh/pages/new/main?filename=spaces/YOUR-LOGIN/my-page/index.md)
 at `spaces/<your login>/<name>/index.md` and propose the change. GitHub makes the fork and the pull request for you.
 
+## Share: only the people you name
+
+Public is for everyone. **Share** is for named people: it asks who, locks the page, and gives each person their own link.
+
+```bash
+npx -y @flisk-sh/pages share interview.html --wait
+# Who is this page for? (names, separated by commas): alice, bob
+# For alice: https://pages.flisk.si/@you/interview/#alice.<key>
+# For bob:   https://pages.flisk.si/@you/interview/#bob.<key>
+```
+
+Skip the question with `--to alice --to bob`. Send each person only their own link.
+
+The caveman rules:
+
+1. The page is locked (AES-256-GCM) before it leaves your machine. The repository and the site only hold the locked page.
+2. One person, one link, one key. The key is the part after `#`, which a browser never sends to a server.
+3. Take someone out: share again with the names you still want. Their old link stops working. Take everyone out: `pages remove`.
+4. No server, no accounts, no database: static files, so a billion readers cost the same as one.
+5. Lose the link, lose the page: there is no recovery, share again.
+6. One self-contained `.html` page (no Markdown, no extra files). A person can still forward their link, so this is "named people given a link", not a login.
+
 ## GitHub Action
 
 Check a page in CI with the same rules the publish runs, and publish it when you want. The check needs no keys and
